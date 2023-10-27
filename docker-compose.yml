@@ -11,7 +11,6 @@ services:
         container_name: gpt-chain
         volumes:
             - '.:/usr/app/'
-            - /usr/app/node_modules
         ports:
             - '${VITE_PORT:-5173}:${VITE_PORT:-5173}'
         networks:
