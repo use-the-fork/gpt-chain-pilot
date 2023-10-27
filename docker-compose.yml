@@ -6,10 +6,12 @@ services:
             dockerfile: Dockerfile
             args:
                 WWWGROUP: '${WWWGROUP}'
-        image: "ubuntu:22.04"
+        command: npm run dev
+        image: "node:20-alpine"
         container_name: gpt-chain
         volumes:
-            - '.:/var/www/html'
+            - '.:/usr/app/'
+            - /usr/app/node_modules
         ports:
             - '${VITE_PORT:-5173}:${VITE_PORT:-5173}'
         networks:
