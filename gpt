@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+docker exec gpt-chain "$@"
+
+docker-compose run gpt-chain npm install
+
