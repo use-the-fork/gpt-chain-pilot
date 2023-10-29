@@ -1,4 +1,3 @@
 packages:
-  - 'packages/client/'
-  - 'packages/components/'
-  - 'packages/client-server/'
+  - 'frontend/'
+  - 'libs/components/'

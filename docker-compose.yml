@@ -1,30 +1,28 @@
-version: "3.0"
+version: "3.7"
 services:
-    gpt.chain:
-        build:
-            context: ./docker
-            dockerfile: Dockerfile
-            args:
-                WWWGROUP: '${WWWGROUP}'
-        command: npm run dev
-        image: "node:20-alpine"
-        container_name: gpt-chain
-        volumes:
-            - '.:/usr/app/'
-        ports:
-            - '${VITE_PORT:-5173}:${VITE_PORT:-5173}'
-        networks:
-            - gptchainnet
-        depends_on:
-            - chroma
-    chroma:
-        image: ghcr.io/chroma-core/chroma:latest
-        volumes:
-            - './chroma_data:/chroma/.chroma/index'
-        ports:
-            - '${FORWARD_CHROMA_PORT:-8000}:8000'
-        networks:
-            - gptchainnet
+  client:
+    build:
+      context: ./
+      target: client
+      dockerfile: Dockerfile
+    image: client
+    container_name: gpt-chain
+    volumes:
+      - '.:/usr/app/'
+    ports:
+      - '${VITE_PORT:-5173}:${VITE_PORT:-5173}'
+    networks:
+      - gptchainnet
+    depends_on:
+      - chroma
+  chroma:
+    image: ghcr.io/chroma-core/chroma:latest
+    volumes:
+      - './chroma_data:/chroma/.chroma/index'
+    ports:
+      - '${FORWARD_CHROMA_PORT:-8000}:8000'
+    networks:
+      - gptchainnet
 networks:
-    gptchainnet:
-        driver: bridge
+  gptchainnet:
+    driver: bridge
